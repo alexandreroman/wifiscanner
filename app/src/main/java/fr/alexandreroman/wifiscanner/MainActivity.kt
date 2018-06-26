@@ -23,34 +23,48 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
 import timber.log.Timber
+import java.util.*
 
 /**
  * Main activity.
  * @author Alexandre Roman
  */
 class MainActivity : AppCompatActivity() {
+    private lateinit var navBar: AHBottomNavigation
+    private val tabHistory: Stack<Int> = Stack()
+    private var saveTabHistory: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Setup navigation bar.
-        val navBar = findViewById<AHBottomNavigation>(R.id.navigation)
+        navBar = findViewById(R.id.navigation)
         navBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
 
         // Load navigation items.
         val navBarAdapter = AHBottomNavigationAdapter(this, R.menu.navigation_items)
         navBarAdapter.setupWithBottomNavigation(navBar)
 
-        // Setup navigation between tabs.
+        // Setup tab history.
         val navPager = findViewById<ViewPager>(R.id.view_pager)
         navPager.offscreenPageLimit = 3
+        navPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                if (saveTabHistory) {
+                    tabHistory.push(position)
+                }
+            }
+        })
+
+        // Setup navigation between tabs.
         val navPagerAdapter = NavPagerAdapter(supportFragmentManager)
         navPager.adapter = navPagerAdapter
         navBar.setOnTabSelectedListener { position, wasSelected ->
             val curTab = navPagerAdapter.getCurrentFragment()
             if (wasSelected) {
                 curTab.refresh()
-                true
+                false
             } else {
                 if (position == 3) {
                     showMenu()
@@ -60,6 +74,28 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
             }
+        }
+        tabHistory.push(0)
+        saveTabHistory = true
+    }
+
+    override fun onBackPressed() {
+        if (!tabHistory.isEmpty()) {
+            /// Remove current tab index since we're going backward.
+            tabHistory.pop()
+
+            if (tabHistory.isEmpty()) {
+                // The tab history is empty: our journey has come to an end.
+                finish()
+            } else {
+                // This is the new tab index to show.
+                val tabIndex = tabHistory.peek()
+                saveTabHistory = false
+                navBar.currentItem = tabIndex
+                saveTabHistory = true
+            }
+        } else {
+            finish()
         }
     }
 
