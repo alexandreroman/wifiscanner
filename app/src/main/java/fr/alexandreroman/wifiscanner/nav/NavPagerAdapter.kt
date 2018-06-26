@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package fr.alexandreroman.wifiscanner
+package fr.alexandreroman.wifiscanner.nav
 
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.view.ViewGroup
+import fr.alexandreroman.wifiscanner.hosts.HostsFragment
+import fr.alexandreroman.wifiscanner.info.InfoFragment
+import fr.alexandreroman.wifiscanner.networks.NetworksFragment
 
 class NavPagerAdapter : FragmentPagerAdapter {
     private val fragments = arrayListOf(

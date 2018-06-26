@@ -14,31 +14,33 @@
  * limitations under the License.
  */
 
-package fr.alexandreroman.wifiscanner
+package fr.alexandreroman.wifiscanner.hosts
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import fr.alexandreroman.wifiscanner.R
+import fr.alexandreroman.wifiscanner.nav.NavFragment
 import timber.log.Timber
 
 /**
- * Fragment displaying the "networks" tab.
+ * Fragment displaying the "hosts" tab.
  * @author Alexandre Roman
  */
-class NetworksFragment : NavFragment() {
+class HostsFragment : NavFragment() {
     companion object {
         @JvmStatic
-        fun newInstance(): NetworksFragment {
-            return NetworksFragment()
+        fun newInstance(): HostsFragment {
+            return HostsFragment()
         }
     }
 
     override fun refresh() {
-        Timber.d("Refreshing tab: networks")
+        Timber.d("Refreshing tab: hosts")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_networks, container, false)
+        return inflater.inflate(R.layout.fragment_hosts, container, false)
     }
 }

@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
+import fr.alexandreroman.wifiscanner.nav.NavPagerAdapter
 import timber.log.Timber
 import java.util.*
 

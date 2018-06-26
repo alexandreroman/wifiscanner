@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package fr.alexandreroman.wifiscanner
+package fr.alexandreroman.wifiscanner.nav
 
 import android.support.v4.app.Fragment
 

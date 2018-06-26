@@ -14,31 +14,41 @@
  * limitations under the License.
  */
 
-package fr.alexandreroman.wifiscanner
+package fr.alexandreroman.wifiscanner.info
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import fr.alexandreroman.wifiscanner.R
+import fr.alexandreroman.wifiscanner.nav.NavFragment
 import timber.log.Timber
 
 /**
- * Fragment displaying the "hosts" tab.
+ * Fragment displaying the "info" tab.
  * @author Alexandre Roman
  */
-class HostsFragment : NavFragment() {
+class InfoFragment : NavFragment() {
     companion object {
         @JvmStatic
-        fun newInstance(): HostsFragment {
-            return HostsFragment()
+        fun newInstance(): InfoFragment {
+            return InfoFragment()
         }
     }
 
     override fun refresh() {
-        Timber.d("Refreshing tab: hosts")
+        Timber.d("Refreshing tab: info")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_hosts, container, false)
+        return inflater.inflate(R.layout.fragment_info, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val listView = view.findViewById<RecyclerView>(R.id.list)
+        // TODO
     }
 }
