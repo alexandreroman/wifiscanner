@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_info">Info</string>
+    <string name="nav_hosts">Hôtes</string>
+    <string name="nav_networks">Réseaux</string>
+    <string name="nav_menu">Menu</string>
+    <string name="menu_about">A propos de cette application</string>
+    <string name="menu_settings">Paramètres</string>
+    <string name="menu_licenses">Licences des logiciels</string>
+</resources>

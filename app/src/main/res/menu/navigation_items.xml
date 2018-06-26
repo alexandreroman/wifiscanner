@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_info"
+        android:icon="@drawable/baseline_network_wifi_24"
+        android:title="@string/nav_info" />
+    <item
+        android:id="@+id/nav_hosts"
+        android:icon="@drawable/baseline_phonelink_24"
+        android:title="@string/nav_hosts" />
+    <item
+        android:id="@+id/nav_networks"
+        android:icon="@drawable/baseline_network_check_24"
+        android:title="@string/nav_networks" />
+    <item
+        android:id="@+id/nav_menu"
+        android:icon="@drawable/baseline_menu_24"
+        android:title="@string/nav_menu" />
+</menu>
