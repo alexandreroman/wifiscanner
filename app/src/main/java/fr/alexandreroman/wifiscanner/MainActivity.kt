@@ -20,6 +20,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
@@ -80,6 +81,10 @@ class MainActivity : AppCompatActivity() {
         }
         tabHistory.push(0)
         saveTabHistory = true
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = getString(R.string.app_name)
+        setSupportActionBar(toolbar)
     }
 
     override fun onBackPressed() {
