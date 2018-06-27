@@ -22,4 +22,30 @@
         <item name="behavior_skipCollapsed">true</item>
     </style>
 
+    <style name="Content">
+        <item name="android:background">#ddd</item>
+    </style>
+
+    <style name="Card">
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="CardContent">
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="FormField">
+        <item name="android:textColor">@color/colorFormField</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="FormValue">
+        <item name="android:textColor">@color/colorFormValue</item>
+    </style>
+
 </resources>

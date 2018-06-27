@@ -7,5 +7,23 @@
     <string name="menu_about">A propos de cette application</string>
     <string name="menu_settings">Paramètres</string>
     <string name="menu_licenses">Licences des logiciels</string>
+
     <string name="loading_data">Chargement des informations…</string>
+
+    <string name="info_ssid">SSID</string>
+    <string name="info_hidden_ssid">SSID masqué</string>
+    <string name="info_signal_level">Intensité du signal</string>
+    <string name="info_mac_address">Adresse MAC</string>
+    <string name="info_ip_address">Adresse IP</string>
+    <string name="info_netmask">Masque de sous-réseau</string>
+    <string name="info_gateway_address">Adresse de la passerelle</string>
+    <string name="info_dns_servers">Serveurs DNS</string>
+    <string name="info_network_metered">Réseau facturé à l\'usage</string>
+    <string name="info_value_yes">Oui</string>
+    <string name="info_value_no">Non</string>
+    <string name="info_value_unknown">Inconnu</string>
+    <string name="info_value_na">Non disponible</string>
+    <string name="info_permission_warning">Certaines informations (comme le SSID) nécessittent des <a href="https://developer.android.com/about/versions/marshmallow/android-6.0-changes#behavior-hardware-id">permissions supplémentaires</a> pour être affichées.</string>
+    <string name="info_permission_warning_action">Examiner les permissions</string>
+    <string name="info_no_wifi">Votre appareil n\'est pas connecté à un réseau Wi-Fi.</string>
 </resources>

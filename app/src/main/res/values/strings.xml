@@ -7,5 +7,23 @@
     <string name="menu_about">About this app</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_licenses">Software licenses</string>
+
     <string name="loading_data">Loading data...</string>
+
+    <string name="info_ssid">SSID</string>
+    <string name="info_hidden_ssid">Hidden SSID</string>
+    <string name="info_signal_level">Signal level</string>
+    <string name="info_mac_address">MAC address</string>
+    <string name="info_ip_address">IP address</string>
+    <string name="info_netmask">Network mask</string>
+    <string name="info_gateway_address">Gateway address</string>
+    <string name="info_dns_servers">DNS servers</string>
+    <string name="info_network_metered">Network metered</string>
+    <string name="info_value_yes">Yes</string>
+    <string name="info_value_no">No</string>
+    <string name="info_value_unknown">Unknown</string>
+    <string name="info_value_na">N/A</string>
+    <string name="info_permission_warning">Some information (such as SSID) require <a href="https://developer.android.com/about/versions/marshmallow/android-6.0-changes#behavior-hardware-id">additional permissions</a> in order to get displayed.</string>
+    <string name="info_permission_warning_action">Review permissions</string>
+    <string name="info_no_wifi">Your device is not connected to a Wi-Fi network.</string>
 </resources>

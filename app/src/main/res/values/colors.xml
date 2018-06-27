@@ -3,4 +3,6 @@
     <color name="colorPrimary">#eceff1</color>
     <color name="colorPrimaryDark">#babdbe</color>
     <color name="colorAccent">#7cb342</color>
+    <color name="colorFormField">@color/colorAccent</color>
+    <color name="colorFormValue">#666</color>
 </resources>
