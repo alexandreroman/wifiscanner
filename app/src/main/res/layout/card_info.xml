@@ -1,135 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     style="@style/Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
-    <android.support.v7.widget.GridLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         style="@style/CardContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:columnCount="2"
-        app:useDefaultMargins="true">
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_ssid"
-            app:layout_column="0"
-            app:layout_row="0" />
+        <android.support.v7.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:columnCount="2"
+            app:useDefaultMargins="true">
 
-        <TextView
-            android:id="@+id/info_ssid"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="0"
-            tool:text="mynetwork" />
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_ssid"
+                app:layout_column="0"
+                app:layout_row="0" />
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_hidden_ssid"
-            app:layout_column="0"
-            app:layout_row="1" />
+            <TextView
+                android:id="@+id/info_ssid"
+                style="@style/FormValue"
+                app:layout_column="1"
+                app:layout_row="0"
+                tool:text="mynetwork" />
 
-        <TextView
-            android:id="@+id/info_hidden_ssid"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="1"
-            tool:text="@string/info_value_no" />
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_hidden_ssid"
+                app:layout_column="0"
+                app:layout_row="1" />
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_signal_level"
-            app:layout_column="0"
-            app:layout_row="2" />
+            <TextView
+                android:id="@+id/info_hidden_ssid"
+                style="@style/FormValue"
+                app:layout_column="1"
+                app:layout_row="1"
+                tool:text="@string/info_value_no" />
 
-        <TextView
-            android:id="@+id/info_signal_level"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="2"
-            tool:text="4/5" />
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_signal_level"
+                app:layout_column="0"
+                app:layout_row="2" />
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_mac_address"
-            app:layout_column="0"
-            app:layout_row="3" />
+            <TextView
+                android:id="@+id/info_signal_level"
+                style="@style/FormValue"
+                app:layout_column="1"
+                app:layout_row="2"
+                tool:text="4/5" />
 
-        <TextView
-            android:id="@+id/info_mac_address"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="3"
-            tool:text="@string/info_value_na" />
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_ip_address"
+                app:layout_column="0"
+                app:layout_row="4" />
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_ip_address"
-            app:layout_column="0"
-            app:layout_row="4" />
+            <TextView
+                android:id="@+id/info_ip_address"
+                style="@style/FormValue"
+                app:layout_column="1"
+                app:layout_row="4"
+                tool:text="192.168.1.1" />
 
-        <TextView
-            android:id="@+id/info_ip_address"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="4"
-            tool:text="192.168.1.1" />
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_netmask"
+                app:layout_column="0"
+                app:layout_row="5" />
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_netmask"
-            app:layout_column="0"
-            app:layout_row="5" />
+            <TextView
+                android:id="@+id/info_netmask"
+                style="@style/FormValue"
+                app:layout_column="1"
+                app:layout_row="5"
+                tool:text="255.255.255.0" />
 
-        <TextView
-            android:id="@+id/info_netmask"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="5"
-            tool:text="255.255.255.0" />
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_gateway_address"
+                app:layout_column="0"
+                app:layout_row="6" />
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_gateway_address"
-            app:layout_column="0"
-            app:layout_row="6" />
+            <TextView
+                android:id="@+id/info_gateway_address"
+                style="@style/FormValue"
+                app:layout_column="1"
+                app:layout_row="6"
+                tool:text="192.168.1.254" />
 
-        <TextView
-            android:id="@+id/info_gateway_address"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="6"
-            tool:text="192.168.1.254" />
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_dns_servers"
+                app:layout_column="0"
+                app:layout_row="7" />
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_dns_servers"
-            app:layout_column="0"
-            app:layout_row="7" />
+            <TextView
+                android:id="@+id/info_dns_servers"
+                style="@style/FormValue"
+                app:layout_column="1"
+                app:layout_row="7"
+                tool:text="192.168.1.254\n8.8.8.8" />
 
-        <TextView
-            android:id="@+id/info_dns_servers"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="7"
-            tool:text="192.168.1.254\n8.8.8.8" />
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_network_metered"
+                app:layout_column="0"
+                app:layout_row="8" />
 
-        <TextView
-            style="@style/FormField"
-            android:text="@string/info_network_metered"
-            app:layout_column="0"
-            app:layout_row="8" />
+            <TextView
+                android:id="@+id/info_network_metered"
+                style="@style/FormValue"
+                app:layout_column="1"
+                app:layout_row="8"
+                tool:text="No" />
+        </android.support.v7.widget.GridLayout>
 
-        <TextView
-            android:id="@+id/info_network_metered"
-            style="@style/FormValue"
-            app:layout_column="1"
-            app:layout_row="8"
-            tool:text="@string/info_value_no" />
+        <android.support.v7.widget.GridLayout
+            android:id="@+id/info_ipv6_block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:columnCount="1"
+            app:useDefaultMargins="true">
 
-    </android.support.v7.widget.GridLayout>
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_ipv6_addresses"
+                app:layout_column="0"
+                app:layout_row="0" />
+
+            <TextView
+                android:id="@+id/info_ipv6_addresses"
+                style="@style/FormValue"
+                app:layout_column="0"
+                app:layout_row="1"
+                tool:text="ff80::" />
+
+        </android.support.v7.widget.GridLayout>
+
+    </LinearLayout>
+
 
 </android.support.v7.widget.CardView>

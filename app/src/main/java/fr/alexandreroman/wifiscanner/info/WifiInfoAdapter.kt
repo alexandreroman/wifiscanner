@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import fr.alexandreroman.wifiscanner.R
+import java.net.Inet4Address
+import java.net.Inet6Address
 import java.net.InetAddress
 
 /**
@@ -34,12 +36,13 @@ class WifiInfoAdapter(val activity: Activity) : RecyclerView.Adapter<WifiInfoAda
         val ssid: TextView = view.findViewById(R.id.info_ssid)
         val hiddenSsid: TextView = view.findViewById(R.id.info_hidden_ssid)
         val signalLevel: TextView = view.findViewById(R.id.info_signal_level)
-        val macAddress: TextView = view.findViewById(R.id.info_mac_address)
         val ipAddress: TextView = view.findViewById(R.id.info_ip_address)
         val netmask: TextView = view.findViewById(R.id.info_netmask)
+        val ipv6Addresses: TextView = view.findViewById(R.id.info_ipv6_addresses)
         val gatewayAddress: TextView = view.findViewById(R.id.info_gateway_address)
         val dnsServers: TextView = view.findViewById(R.id.info_dns_servers)
         val networkMetered: TextView = view.findViewById(R.id.info_network_metered)
+        val ipv6Block: View = view.findViewById(R.id.info_ipv6_block)
     }
 
     fun update(newWifiInfo: WifiInfo?) {
@@ -97,18 +100,24 @@ class WifiInfoAdapter(val activity: Activity) : RecyclerView.Adapter<WifiInfoAda
             holder.ssid.text = wifiInfo!!.ssid ?: context.getString(R.string.info_value_na)
             holder.hiddenSsid.text = wifiInfo!!.hiddenSsid.format(context)
             holder.signalLevel.text = "%d/10".format(wifiInfo!!.signalLevel)
-            holder.macAddress.text = wifiInfo!!.macAddress ?: context.getString(R.string.info_value_na)
-            holder.ipAddress.text = wifiInfo!!.ipAddress.format()
+            holder.ipAddress.text = wifiInfo!!.ipAddresses.first { it is Inet4Address }.format()
             holder.netmask.text = wifiInfo!!.netmask.format()
+            holder.ipv6Addresses.text = wifiInfo!!.ipAddresses
+                    .filter { it is Inet6Address }
+                    .sortedWith(InetAddressComparator).joinToString(separator = "\n") { it.format() }
+            holder.ipv6Block.visibility = if (holder.ipv6Addresses.text.isNullOrBlank()) View.GONE else View.VISIBLE
             holder.gatewayAddress.text = wifiInfo!!.gatewayAddress.format()
 
             if (wifiInfo!!.dnsServers.isEmpty()) {
                 holder.dnsServers.text = context.getText(R.string.info_value_unknown)
             } else {
-                holder.dnsServers.text = wifiInfo!!.dnsServers.map { it.format() }.joinToString(separator = "\n")
+                holder.dnsServers.text = wifiInfo!!.dnsServers
+                        .sortedWith(InetAddressComparator)
+                        .map { it.format() }
+                        .joinToString(separator = "\n")
             }
 
-            holder.networkMetered.text = wifiInfo!!.networkMetered.format(context)
+            holder.networkMetered.text = wifiInfo!!.networkMetered?.format(context) ?: context.getString(R.string.info_value_unknown)
         }
     }
 
@@ -116,4 +125,17 @@ class WifiInfoAdapter(val activity: Activity) : RecyclerView.Adapter<WifiInfoAda
             if (this) context.getString(R.string.info_value_yes) else context.getString(R.string.info_value_no)
 
     private fun InetAddress.format() = this.hostAddress
+
+    object InetAddressComparator : Comparator<InetAddress> {
+        override fun compare(o1: InetAddress?, o2: InetAddress?): Int {
+            if (o1 is Inet4Address && o2 is Inet4Address ||
+                    o1 is Inet6Address && o2 is Inet6Address) {
+                return o1.hostAddress.compareTo(o2.hostAddress)
+            }
+            if (o1 is Inet4Address && o2 is Inet6Address) {
+                return -1
+            }
+            return 1
+        }
+    }
 }

@@ -13,9 +13,9 @@
     <string name="info_ssid">SSID</string>
     <string name="info_hidden_ssid">Hidden SSID</string>
     <string name="info_signal_level">Signal level</string>
-    <string name="info_mac_address">MAC address</string>
     <string name="info_ip_address">IP address</string>
     <string name="info_netmask">Network mask</string>
+    <string name="info_ipv6_addresses">IPv6 addresses</string>
     <string name="info_gateway_address">Gateway address</string>
     <string name="info_dns_servers">DNS servers</string>
     <string name="info_network_metered">Network metered</string>

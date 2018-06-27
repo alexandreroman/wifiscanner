@@ -10,12 +10,11 @@ data class WifiInfo(
         val ssid: String?,
         val hiddenSsid: Boolean,
         val signalLevel: Int,
-        val macAddress: String?,
-        val ipAddress: InetAddress,
+        val ipAddresses: List<InetAddress>,
         val netmask: InetAddress,
         val gatewayAddress: InetAddress,
         val dnsServers: List<InetAddress>,
         val linkSpeed: Int,
-        val networkMetered: Boolean,
+        val networkMetered: Boolean?,
         val permissionsRequired: Boolean
 )

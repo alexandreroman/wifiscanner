@@ -4,10 +4,14 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
+import android.net.LinkAddress
+import android.net.Network
+import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import timber.log.Timber
+import java.net.Inet4Address
 import java.net.InetAddress
 
 /**
@@ -15,6 +19,8 @@ import java.net.InetAddress
  * @author Alexandre Roman
  */
 object WifiInfoRepository {
+    private const val UNKNOWN_SSID = "<unknown ssid>"
+
     fun load(context: Context): WifiInfo? {
         Timber.d("Loading Wi-Fi information")
 
@@ -23,23 +29,38 @@ object WifiInfoRepository {
             Timber.d("Wi-Fi is disabled")
             return null
         }
+
         val connMan = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netInfo = connMan.activeNetworkInfo
-        if (netInfo == null || netInfo.type != ConnectivityManager.TYPE_WIFI) {
-            Timber.d("Active network is not using Wi-Fi")
+        var wifiNet: Network? = null
+
+        // Find out a network providing a connection using Wi-Fi.
+        connMan.allNetworks.forEach {
+            val caps = connMan.getNetworkCapabilities(it)
+            if (caps != null && caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                val netInfo = connMan.getNetworkInfo(it)
+                if (netInfo != null && netInfo.isConnected) {
+                    wifiNet = it
+                }
+            }
+        }
+        if (wifiNet == null) {
+            Timber.d("No Wi-Fi network found")
             return null
         }
 
-        if (!netInfo.isConnected) {
-            Timber.d("Current Wi-Fi network is not connected")
-            return null
+        val networkMetered: Boolean?
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // ConnectivityManager.activeNetwork is only available on API 23+.
+            networkMetered = wifiNet!!.equals(connMan.activeNetwork) && connMan.isActiveNetworkMetered
+        } else {
+            // I'm sorry boy, I can't help you with this one.
+            networkMetered = null
         }
 
         val wifiConnInfo = wifiMan.connectionInfo
-        val networkMetered = connMan.isActiveNetworkMetered
 
         val ssid: String?
-        if ("<unknown ssid>".equals(wifiConnInfo.ssid) || wifiConnInfo.ssid == null) {
+        if (UNKNOWN_SSID.equals(wifiConnInfo.ssid) || wifiConnInfo.ssid == null) {
             // This may happen if the user has not granted location permission.
             ssid = null
         } else if (wifiConnInfo.ssid.startsWith("\"") && wifiConnInfo.ssid.endsWith("\"")) {
@@ -51,40 +72,44 @@ object WifiInfoRepository {
 
         val hiddenSsid = wifiConnInfo.hiddenSSID
         val signalLevel = WifiManager.calculateSignalLevel(wifiConnInfo.rssi, 10)
-        val macAddress = if (!"02:00:00:00:00:00".equals(wifiConnInfo.macAddress)) wifiConnInfo.macAddress else null
-        val ipAddress = wifiConnInfo.ipAddress.toInetAddress()
         val linkSpeed = wifiConnInfo.linkSpeed
 
-        val dhcpInfo = wifiMan.dhcpInfo
-        val gatewayAddress = dhcpInfo.gateway.toInetAddress()
-        val netmask = dhcpInfo.netmask.toInetAddress()
+        val linkProps = connMan.getLinkProperties(wifiNet)
+        val defaultRoute = linkProps.routes.findLast { it.isDefaultRoute }
+        if (defaultRoute == null) {
+            Timber.d("Current Wi-Fi connection is not ready")
+            return null
+        }
 
-        val dnsServers = mutableListOf<InetAddress>()
-        if (dhcpInfo.dns1 != 0) {
-            dnsServers.add(dhcpInfo.dns1.toInetAddress())
-        }
-        if (dhcpInfo.dns2 != 0) {
-            dnsServers.add(dhcpInfo.dns2.toInetAddress())
-        }
+        val ipAddresses = linkProps.linkAddresses.map { it.address }
+        val gatewayAddress = defaultRoute.gateway
+        val dnsServers = linkProps.dnsServers
+
+        val netmask: InetAddress = getNetmask(linkProps.linkAddresses.filter { it.address is Inet4Address }.first())
 
         val permissionsRequired = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && UNKNOWN_SSID == wifiConnInfo.ssid
 
         val result = WifiInfo(
                 ssid = ssid,
                 hiddenSsid = hiddenSsid,
                 signalLevel = signalLevel,
-                macAddress = macAddress,
-                ipAddress = ipAddress,
+                ipAddresses = ipAddresses,
+                netmask = netmask,
                 linkSpeed = linkSpeed,
                 gatewayAddress = gatewayAddress,
-                netmask = netmask,
                 dnsServers = dnsServers,
                 networkMetered = networkMetered,
                 permissionsRequired = permissionsRequired
         )
         Timber.d("Wi-Fi information loaded: %s", result)
         return result
+    }
+
+    private fun getNetmask(la: LinkAddress): InetAddress {
+        val prefixLength = la.prefixLength
+        return Integer.reverseBytes((0xffffffff shl (32 - prefixLength)).toInt()).toInetAddress()
     }
 
     private fun Int.toInetAddress() =
