@@ -88,7 +88,7 @@ class WifiInfoAdapter(val activity: Activity) : RecyclerView.Adapter<WifiInfoAda
                     val reviewPermsButton = view.findViewById<Button>(R.id.review_permissions)
                     reviewPermsButton.setOnClickListener {
                         ActivityCompat.requestPermissions(activity,
-                                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_REQUEST_CODE)
+                                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSION_REQUEST_CODE)
                     }
 
                     ViewHolder(view)
