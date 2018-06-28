@@ -82,10 +82,10 @@ class InfoFragment : NavFragment() {
         swipeLayout.setOnRefreshListener { refresh() }
         swipeLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorAccent))
 
+        val listAdapter = WifiInfoAdapter(requireActivity())
         val listView = view.findViewById<RecyclerView>(R.id.list)
-        listView.layoutManager = LinearLayoutManager(context)
-        val listAdapter = WifiInfoAdapter(activity!!)
         listView.adapter = listAdapter
+        listView.layoutManager = LinearLayoutManager(context)
 
         val statusText = view.findViewById<TextView>(R.id.status_text)
 
