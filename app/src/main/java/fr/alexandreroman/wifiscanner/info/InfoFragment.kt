@@ -48,10 +48,14 @@ class InfoFragment : NavFragment() {
 
     private val wifiNetHandler = object : ConnectivityManager.NetworkCallback() {
         override fun onLinkPropertiesChanged(network: Network?, linkProperties: LinkProperties?) {
-            //refreshUI()
+            refreshUI()
         }
 
         override fun onCapabilitiesChanged(network: Network?, networkCapabilities: NetworkCapabilities?) {
+            refreshUI()
+        }
+
+        override fun onLost(network: Network?) {
             refreshUI()
         }
 
