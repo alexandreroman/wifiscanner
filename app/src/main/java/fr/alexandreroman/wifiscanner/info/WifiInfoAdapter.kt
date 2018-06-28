@@ -92,7 +92,7 @@ class WifiInfoAdapter : RecyclerView.Adapter<WifiInfoAdapter.ViewHolder>() {
             val context = holder.ssid.context
             holder.ssid.text = wifiInfo!!.ssid ?: context.getString(R.string.info_value_na)
             holder.hiddenSsid.text = wifiInfo!!.hiddenSsid.format(context)
-            holder.signalLevel.text = "%d/10".format(wifiInfo!!.signalLevel)
+            holder.signalLevel.text = "%d/10".format(wifiInfo!!.signalLevel + 1)
             holder.ipAddress.text = wifiInfo!!.ipAddresses.first { it is Inet4Address }.format()
             holder.netmask.text = wifiInfo!!.netmask.format()
             holder.ipv6Addresses.text = wifiInfo!!.ipAddresses
