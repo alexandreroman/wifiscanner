@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat
 import timber.log.Timber
 import java.net.Inet4Address
 import java.net.InetAddress
+import java.util.*
 
 /**
  * [WifiInfo] repository.
@@ -48,31 +49,30 @@ object WifiInfoRepository {
             return null
         }
 
-        val networkMetered: Boolean?
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val networkMetered: Boolean? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // ConnectivityManager.activeNetwork is only available on API 23+.
-            networkMetered = wifiNet!!.equals(connMan.activeNetwork) && connMan.isActiveNetworkMetered
+            wifiNet!!.equals(connMan.activeNetwork) && connMan.isActiveNetworkMetered
         } else {
             // I'm sorry boy, I can't help you with this one.
-            networkMetered = null
+            null
         }
 
         val wifiConnInfo = wifiMan.connectionInfo
 
-        val ssid: String?
-        if (UNKNOWN_SSID.equals(wifiConnInfo.ssid) || wifiConnInfo.ssid == null) {
+        val ssid: String? = if (UNKNOWN_SSID == wifiConnInfo.ssid || wifiConnInfo.ssid == null) {
             // This may happen if the user has not granted location permission.
-            ssid = null
+            null
         } else if (wifiConnInfo.ssid.startsWith("\"") && wifiConnInfo.ssid.endsWith("\"")) {
-            ssid = wifiConnInfo.ssid.substring(1, wifiConnInfo.ssid.length - 1)
+            wifiConnInfo.ssid.substring(1, wifiConnInfo.ssid.length - 1)
         } else {
             // SSID cannot be decoded as an UTF-8 string.
-            ssid = null
+            null
         }
 
         val hiddenSsid = wifiConnInfo.hiddenSSID
         val signalLevel = WifiManager.calculateSignalLevel(wifiConnInfo.rssi, 10)
         val linkSpeed = wifiConnInfo.linkSpeed
+        val frequency = wifiConnInfo.frequency
 
         val linkProps = connMan.getLinkProperties(wifiNet)
         val defaultRoute = linkProps.routes.findLast { it.isDefaultRoute }
@@ -84,8 +84,12 @@ object WifiInfoRepository {
         val ipAddresses = linkProps.linkAddresses.map { it.address }
         val gatewayAddress = defaultRoute.gateway
         val dnsServers = linkProps.dnsServers
+        val httpProxy = linkProps.httpProxy
+        val domains =
+                if (linkProps.domains.isNullOrBlank()) Collections.emptyList<String>()
+                else linkProps.domains.split(delimiters = ',')
 
-        val netmask: InetAddress = getNetmask(linkProps.linkAddresses.filter { it.address is Inet4Address }.first())
+        val netmask: InetAddress = getNetmask(linkProps.linkAddresses.first { it.address is Inet4Address })
 
         val permissionsRequired = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -101,6 +105,9 @@ object WifiInfoRepository {
                 gatewayAddress = gatewayAddress,
                 dnsServers = dnsServers,
                 networkMetered = networkMetered,
+                frequency = frequency,
+                httpProxy = httpProxy,
+                domains = domains,
                 permissionsRequired = permissionsRequired
         )
         Timber.d("Wi-Fi information loaded: %s", result)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -22,106 +22,146 @@
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_ssid"
-                app:layout_column="0"
-                app:layout_row="0" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_ssid"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="1"
-                app:layout_row="0"
-                tool:text="mynetwork" />
+                tools:text="mynetwork" />
 
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_hidden_ssid"
-                app:layout_column="0"
-                app:layout_row="1" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_hidden_ssid"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="1"
-                app:layout_row="1"
-                tool:text="@string/info_value_no" />
+                tools:text="@string/info_value_no" />
 
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_signal_level"
-                app:layout_column="0"
-                app:layout_row="2" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_signal_level"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="1"
-                app:layout_row="2"
-                tool:text="4/5" />
+                tools:text="4/5" />
+
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_frequency"
+                app:layout_column="0" />
+
+            <TextView
+                android:id="@+id/info_frequency"
+                style="@style/FormValue"
+                android:textIsSelectable="true"
+                app:layout_column="1"
+                tools:text="5 Ghz" />
+
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_link_speed"
+                app:layout_column="0" />
+
+            <TextView
+                android:id="@+id/info_link_speed"
+                style="@style/FormValue"
+                android:textIsSelectable="true"
+                app:layout_column="1"
+                tools:text="480 Mbps" />
 
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_ip_address"
-                app:layout_column="0"
-                app:layout_row="4" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_ip_address"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="1"
-                app:layout_row="4"
-                tool:text="192.168.1.1" />
+                tools:text="192.168.1.1" />
 
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_netmask"
-                app:layout_column="0"
-                app:layout_row="5" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_netmask"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="1"
-                app:layout_row="5"
-                tool:text="255.255.255.0" />
+                tools:text="255.255.255.0" />
 
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_gateway_address"
-                app:layout_column="0"
-                app:layout_row="6" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_gateway_address"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="1"
-                app:layout_row="6"
-                tool:text="192.168.1.254" />
+                tools:text="192.168.1.254" />
 
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_dns_servers"
-                app:layout_column="0"
-                app:layout_row="7" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_dns_servers"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="1"
-                app:layout_row="7"
-                tool:text="192.168.1.254\n8.8.8.8" />
+                tools:text="192.168.1.254\n8.8.8.8" />
+
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_domains"
+                app:layout_column="0" />
+
+            <TextView
+                android:id="@+id/info_domains"
+                style="@style/FormValue"
+                android:textIsSelectable="true"
+                app:layout_column="1"
+                tools:text="mydomain" />
+
+            <TextView
+                style="@style/FormField"
+                android:text="@string/info_http_proxy"
+                app:layout_column="0" />
+
+            <TextView
+                android:id="@+id/info_http_proxy"
+                style="@style/FormValue"
+                android:textIsSelectable="true"
+                app:layout_column="1"
+                tools:text="None" />
 
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_network_metered"
-                app:layout_column="0"
-                app:layout_row="8" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_network_metered"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="1"
-                app:layout_row="8"
-                tool:text="No" />
+                tools:text="No" />
         </android.support.v7.widget.GridLayout>
 
         <android.support.v7.widget.GridLayout
@@ -134,15 +174,14 @@
             <TextView
                 style="@style/FormField"
                 android:text="@string/info_ipv6_addresses"
-                app:layout_column="0"
-                app:layout_row="0" />
+                app:layout_column="0" />
 
             <TextView
                 android:id="@+id/info_ipv6_addresses"
                 style="@style/FormValue"
+                android:textIsSelectable="true"
                 app:layout_column="0"
-                app:layout_row="1"
-                tool:text="ff80::" />
+                tools:text="ff80::" />
 
         </android.support.v7.widget.GridLayout>
 

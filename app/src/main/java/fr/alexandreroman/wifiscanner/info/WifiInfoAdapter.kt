@@ -42,6 +42,10 @@ class WifiInfoAdapter(val activity: Activity) : RecyclerView.Adapter<WifiInfoAda
         val gatewayAddress: TextView = view.findViewById(R.id.info_gateway_address)
         val dnsServers: TextView = view.findViewById(R.id.info_dns_servers)
         val networkMetered: TextView = view.findViewById(R.id.info_network_metered)
+        val linkSpeed: TextView = view.findViewById(R.id.info_link_speed)
+        val frequency: TextView = view.findViewById(R.id.info_frequency)
+        val domains: TextView = view.findViewById(R.id.info_domains)
+        val httpProxy: TextView = view.findViewById(R.id.info_http_proxy)
         val ipv6Block: View = view.findViewById(R.id.info_ipv6_block)
     }
 
@@ -108,16 +112,22 @@ class WifiInfoAdapter(val activity: Activity) : RecyclerView.Adapter<WifiInfoAda
             holder.ipv6Block.visibility = if (holder.ipv6Addresses.text.isNullOrBlank()) View.GONE else View.VISIBLE
             holder.gatewayAddress.text = wifiInfo!!.gatewayAddress.format()
 
-            if (wifiInfo!!.dnsServers.isEmpty()) {
-                holder.dnsServers.text = context.getText(R.string.info_value_unknown)
-            } else {
-                holder.dnsServers.text = wifiInfo!!.dnsServers
-                        .sortedWith(InetAddressComparator)
-                        .map { it.format() }
-                        .joinToString(separator = "\n")
-            }
+            holder.dnsServers.text =
+                    if (wifiInfo!!.dnsServers.isEmpty()) context.getText(R.string.info_value_unknown)
+                    else wifiInfo!!.dnsServers.sortedWith(InetAddressComparator)
+                            .map { it.format() }
+                            .joinToString(separator = "\n")
 
             holder.networkMetered.text = wifiInfo!!.networkMetered?.format(context) ?: context.getString(R.string.info_value_unknown)
+
+            holder.linkSpeed.text = "%d %s".format(wifiInfo!!.linkSpeed, android.net.wifi.WifiInfo.LINK_SPEED_UNITS)
+            holder.frequency.text = "%d %s".format(wifiInfo!!.frequency, android.net.wifi.WifiInfo.FREQUENCY_UNITS)
+            holder.domains.text =
+                    if (wifiInfo!!.domains.isEmpty()) context.getString(R.string.info_value_none)
+                    else wifiInfo!!.domains.sorted().joinToString(separator = "\n")
+            holder.httpProxy.text =
+                    if (wifiInfo!!.httpProxy == null || wifiInfo!!.httpProxy!!.host == null) context.getString(R.string.info_value_none)
+                    else "%s:%d".format(wifiInfo!!.httpProxy!!.host, wifiInfo!!.httpProxy!!.port)
         }
     }
 

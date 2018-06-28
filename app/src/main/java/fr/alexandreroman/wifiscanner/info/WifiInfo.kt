@@ -1,5 +1,6 @@
 package fr.alexandreroman.wifiscanner.info
 
+import android.net.ProxyInfo
 import java.net.InetAddress
 
 /**
@@ -16,5 +17,8 @@ data class WifiInfo(
         val dnsServers: List<InetAddress>,
         val linkSpeed: Int,
         val networkMetered: Boolean?,
+        val httpProxy: ProxyInfo?,
+        val domains: List<String>,
+        val frequency: Int,
         val permissionsRequired: Boolean
 )

@@ -22,8 +22,13 @@
     <string name="info_value_yes">Yes</string>
     <string name="info_value_no">No</string>
     <string name="info_value_unknown">Unknown</string>
+    <string name="info_value_none">None</string>
     <string name="info_value_na">N/A</string>
     <string name="info_permission_warning">Some information (such as SSID) require <a href="https://developer.android.com/about/versions/marshmallow/android-6.0-changes#behavior-hardware-id">additional permissions</a> in order to get displayed.</string>
     <string name="info_permission_warning_action">Review permissions</string>
     <string name="info_no_wifi">Your device is not connected to a Wi-Fi network.</string>
+    <string name="info_http_proxy">HTTP proxy</string>
+    <string name="info_domains">Domains</string>
+    <string name="info_frequency">Frequency</string>
+    <string name="info_link_speed">Link speed</string>
 </resources>
