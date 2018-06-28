@@ -70,7 +70,7 @@ class WifiInfoAdapter(private val activity: Activity) : RecyclerView.Adapter<Wif
             when (position) {
                 0 -> DATA_TYPE
                 1 -> PERM_TYPE
-                else -> throw IllegalArgumentException("Invalid position: " + position)
+                else -> throw IllegalArgumentException("Invalid position: $position")
             }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -93,7 +93,7 @@ class WifiInfoAdapter(private val activity: Activity) : RecyclerView.Adapter<Wif
 
                     ViewHolder(view)
                 }
-                else -> throw IllegalArgumentException("Invalid view type: " + viewType)
+                else -> throw IllegalArgumentException("Invalid view type: $viewType")
             }
 
     override fun getItemCount() = if (wifiInfo == null) 0 else if (wifiInfo!!.permissionsRequired) 2 else 1

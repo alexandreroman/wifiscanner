@@ -51,7 +51,7 @@ object WifiInfoRepository {
 
         val networkMetered: Boolean? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // ConnectivityManager.activeNetwork is only available on API 23+.
-            wifiNet!!.equals(connMan.activeNetwork) && connMan.isActiveNetworkMetered
+            wifiNet!! == connMan.activeNetwork && connMan.isActiveNetworkMetered
         } else {
             // I'm sorry boy, I can't help you with this one.
             null

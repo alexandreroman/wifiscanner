@@ -23,15 +23,13 @@ import fr.alexandreroman.wifiscanner.hosts.HostsFragment
 import fr.alexandreroman.wifiscanner.info.InfoFragment
 import fr.alexandreroman.wifiscanner.networks.NetworksFragment
 
-class NavPagerAdapter : FragmentPagerAdapter {
+class NavPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     private val fragments = arrayListOf(
             InfoFragment.newInstance(),
             HostsFragment.newInstance(),
             NetworksFragment.newInstance()
     )
     private var currentFragment: NavFragment = fragments[0]
-
-    constructor(fm: FragmentManager) : super(fm)
 
     override fun getItem(position: Int): NavFragment {
         return fragments[position]

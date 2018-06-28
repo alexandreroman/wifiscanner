@@ -87,7 +87,7 @@ class NetworksFragment : NavFragment() {
         swipeLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorAccent))
 
         NetworksViewModel.from(this).scanResults.observe(this, Observer {
-            view!!.findViewById<View>(R.id.networks_scan_block).visibility = View.GONE
+            view.findViewById<View>(R.id.networks_scan_block).visibility = View.GONE
             swipeLayout.visibility = View.VISIBLE
             swipeLayout.isRefreshing = false
 
