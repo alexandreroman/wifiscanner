@@ -20,7 +20,7 @@ import java.net.InetAddress
  * [RecyclerView.Adapter] implementation handling a [WifiInfo] instance.
  * @author Alexandre Roman
  */
-class WifiInfoAdapter(val activity: Activity) : RecyclerView.Adapter<WifiInfoAdapter.ViewHolder>() {
+class WifiInfoAdapter(private val activity: Activity) : RecyclerView.Adapter<WifiInfoAdapter.ViewHolder>() {
     companion object {
         private const val DATA_TYPE = 0
         private const val PERM_TYPE = 1

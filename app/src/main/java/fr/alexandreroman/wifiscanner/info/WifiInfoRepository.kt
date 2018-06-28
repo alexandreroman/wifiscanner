@@ -87,7 +87,7 @@ object WifiInfoRepository {
         val httpProxy = linkProps.httpProxy
         val domains =
                 if (linkProps.domains.isNullOrBlank()) Collections.emptyList<String>()
-                else linkProps.domains.split(delimiters = ',')
+                else linkProps.domains.split(delimiters = *charArrayOf(','))
 
         val netmask: InetAddress = getNetmask(linkProps.linkAddresses.first { it.address is Inet4Address })
 
