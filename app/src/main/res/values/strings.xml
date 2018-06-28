@@ -9,6 +9,10 @@
     <string name="menu_licenses">Software licenses</string>
 
     <string name="loading_data">Loading data...</string>
+    <string name="dialog_error">Error</string>
+
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
 
     <string name="info_ssid">SSID</string>
     <string name="info_hidden_ssid">Hidden SSID</string>
@@ -31,4 +35,9 @@
     <string name="info_domains">Domains</string>
     <string name="info_frequency">Frequency</string>
     <string name="info_link_speed">Link speed</string>
+
+    <string name="networks_start_scan">Start scan</string>
+    <string name="networks_start_scan_wifi_disabled">Wi-Fi is not enabled on this device: unable to start scan.</string>
+    <string name="networks_start_scan_permission_warning">Scanning wireless networks requires access to your device location.</string>
+    <string name="networks_start_scan_permission_warning_action">Review permissions</string>
 </resources>

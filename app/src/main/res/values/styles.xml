@@ -24,11 +24,13 @@
 
     <style name="Content">
         <item name="android:background">#ddd</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
     </style>
 
     <style name="Card">
-        <item name="android:layout_marginBottom">2dp</item>
-        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_marginLeft">6dp</item>
         <item name="android:layout_marginRight">6dp</item>
         <item name="cardCornerRadius">4dp</item>

@@ -9,6 +9,10 @@
     <string name="menu_licenses">Licences des logiciels</string>
 
     <string name="loading_data">Chargement des informations…</string>
+    <string name="dialog_error">Erreur</string>
+
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Annuler</string>
 
     <string name="info_ssid">SSID</string>
     <string name="info_hidden_ssid">SSID masqué</string>
@@ -31,4 +35,9 @@
     <string name="info_domains">Domaines</string>
     <string name="info_frequency">Fréquence</string>
     <string name="info_link_speed">Vitesse de connexion</string>
+
+    <string name="networks_start_scan">Démarrer un scan</string>
+    <string name="networks_start_scan_wifi_disabled">Le Wi-Fi est désactivé sur votre appareil : impossible de démarrer un scan.</string>
+    <string name="networks_start_scan_permission_warning">Le scan de réseaux sans-fil requiert l\'accès à la position de votre appareil.</string>
+    <string name="networks_start_scan_permission_warning_action">Examiner les permissions</string>
 </resources>

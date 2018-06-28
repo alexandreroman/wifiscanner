@@ -35,6 +35,7 @@ dependencies {
     implementation "com.android.support:gridlayout-v7:27.1.1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
     implementation 'com.github.rubensousa:bottomsheetbuilder:1.6.1'
     implementation 'com.google.android.gms:play-services-oss-licenses:15.0.1'

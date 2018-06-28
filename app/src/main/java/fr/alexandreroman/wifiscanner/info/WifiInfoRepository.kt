@@ -10,6 +10,8 @@ import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.support.v4.content.ContextCompat
+import fr.alexandreroman.wifiscanner.getSsid
+import fr.alexandreroman.wifiscanner.isSsidUnknown
 import timber.log.Timber
 import java.net.Inet4Address
 import java.net.InetAddress
@@ -20,8 +22,6 @@ import java.util.*
  * @author Alexandre Roman
  */
 object WifiInfoRepository {
-    private const val UNKNOWN_SSID = "<unknown ssid>"
-
     fun load(context: Context): WifiInfo? {
         Timber.d("Loading Wi-Fi information")
 
@@ -59,16 +59,7 @@ object WifiInfoRepository {
 
         val wifiConnInfo = wifiMan.connectionInfo
 
-        val ssid: String? = if (UNKNOWN_SSID == wifiConnInfo.ssid || wifiConnInfo.ssid == null) {
-            // This may happen if the user has not granted location permission.
-            null
-        } else if (wifiConnInfo.ssid.startsWith("\"") && wifiConnInfo.ssid.endsWith("\"")) {
-            wifiConnInfo.ssid.substring(1, wifiConnInfo.ssid.length - 1)
-        } else {
-            // SSID cannot be decoded as an UTF-8 string.
-            null
-        }
-
+        val ssid: String? = wifiConnInfo.getSsid()
         val hiddenSsid = wifiConnInfo.hiddenSSID
         val signalLevel = WifiManager.calculateSignalLevel(wifiConnInfo.rssi, 10)
         val linkSpeed = wifiConnInfo.linkSpeed
@@ -93,7 +84,7 @@ object WifiInfoRepository {
 
         val permissionsRequired = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && UNKNOWN_SSID == wifiConnInfo.ssid
+                && wifiConnInfo.isSsidUnknown()
 
         val result = WifiInfo(
                 ssid = ssid,
