@@ -16,8 +16,10 @@
 
 package fr.alexandreroman.wifiscanner.info
 
+import android.Manifest
 import android.arch.lifecycle.Observer
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.*
 import android.os.Bundle
 import android.os.Handler
@@ -29,6 +31,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import fr.alexandreroman.wifiscanner.R
 import fr.alexandreroman.wifiscanner.nav.NavFragment
@@ -44,6 +47,8 @@ class InfoFragment : NavFragment() {
         fun newInstance(): InfoFragment {
             return InfoFragment()
         }
+
+        private const val PERMISSION_REQUEST_CODE = 42
     }
 
     private val wifiNetHandler = object : ConnectivityManager.NetworkCallback() {
@@ -82,7 +87,7 @@ class InfoFragment : NavFragment() {
         swipeLayout.setOnRefreshListener { refresh() }
         swipeLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorAccent))
 
-        val listAdapter = WifiInfoAdapter(requireActivity())
+        val listAdapter = WifiInfoAdapter()
         val listView = view.findViewById<RecyclerView>(R.id.list)
         listView.adapter = listAdapter
         listView.layoutManager = LinearLayoutManager(context)
@@ -92,8 +97,11 @@ class InfoFragment : NavFragment() {
         val viewModel = InfoViewModel.from(this)
         viewModel.wifiInfo.observe(this, Observer {
             listAdapter.update(it)
-            swipeLayout.isRefreshing = false
 
+            val reviewPerms = view.findViewById<Button>(R.id.info_review_permissions)
+            reviewPerms?.setOnClickListener { onReviewPermissions() }
+
+            swipeLayout.isRefreshing = false
             if (it == null) {
                 swipeLayout.visibility = View.GONE
                 statusText.visibility = View.VISIBLE
@@ -121,5 +129,20 @@ class InfoFragment : NavFragment() {
         super.onStop()
         val connMan = context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         connMan.unregisterNetworkCallback(wifiNetHandler)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    refresh()
+                }
+            }
+        }
+    }
+
+    private fun onReviewPermissions() {
+        requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSION_REQUEST_CODE)
     }
 }

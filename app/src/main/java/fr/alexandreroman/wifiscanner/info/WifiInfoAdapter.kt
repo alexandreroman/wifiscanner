@@ -1,15 +1,11 @@
 package fr.alexandreroman.wifiscanner.info
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
-import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.RecyclerView
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import fr.alexandreroman.wifiscanner.R
 import java.net.Inet4Address
@@ -20,12 +16,10 @@ import java.net.InetAddress
  * [RecyclerView.Adapter] implementation handling a [WifiInfo] instance.
  * @author Alexandre Roman
  */
-class WifiInfoAdapter(private val activity: Activity) : RecyclerView.Adapter<WifiInfoAdapter.ViewHolder>() {
+class WifiInfoAdapter : RecyclerView.Adapter<WifiInfoAdapter.ViewHolder>() {
     companion object {
         private const val DATA_TYPE = 0
         private const val PERM_TYPE = 1
-
-        const val PERMISSION_REQUEST_CODE = 42
     }
 
     private var wifiInfo: WifiInfo? = null
@@ -82,14 +76,9 @@ class WifiInfoAdapter(private val activity: Activity) : RecyclerView.Adapter<Wif
                 PERM_TYPE -> {
                     val view = LayoutInflater.from(parent.context).inflate(R.layout.card_info_permissions, parent, false)
 
+                    // Add hyperlinks.
                     val permText = view.findViewById<TextView>(R.id.perm_warning)
                     permText.movementMethod = LinkMovementMethod.getInstance()
-
-                    val reviewPermsButton = view.findViewById<Button>(R.id.review_permissions)
-                    reviewPermsButton.setOnClickListener {
-                        ActivityCompat.requestPermissions(activity,
-                                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSION_REQUEST_CODE)
-                    }
 
                     ViewHolder(view)
                 }
@@ -136,7 +125,7 @@ class WifiInfoAdapter(private val activity: Activity) : RecyclerView.Adapter<Wif
 
     private fun InetAddress.format() = this.hostAddress
 
-    object InetAddressComparator : Comparator<InetAddress> {
+    private object InetAddressComparator : Comparator<InetAddress> {
         override fun compare(o1: InetAddress?, o2: InetAddress?): Int {
             if (o1 is Inet4Address && o2 is Inet4Address ||
                     o1 is Inet6Address && o2 is Inet6Address) {

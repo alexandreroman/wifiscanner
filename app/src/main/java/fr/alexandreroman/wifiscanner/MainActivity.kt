@@ -16,7 +16,6 @@
 
 package fr.alexandreroman.wifiscanner
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
@@ -24,7 +23,6 @@ import android.support.v7.widget.Toolbar
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
-import fr.alexandreroman.wifiscanner.info.WifiInfoAdapter
 import fr.alexandreroman.wifiscanner.nav.NavPagerAdapter
 import timber.log.Timber
 import java.util.*
@@ -138,16 +136,5 @@ class MainActivity : AppCompatActivity() {
 
     private fun doLicenses() {
         Timber.d("Showing software licenses")
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            WifiInfoAdapter.PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    navBar.setCurrentItem(0, true)
-                }
-            }
-        }
     }
 }
