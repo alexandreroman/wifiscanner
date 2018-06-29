@@ -156,6 +156,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun doLicenses() {
         Timber.d("Showing software licenses")
+        OssLicensesMenuActivity.setActivityTitle(getString(R.string.menu_licenses))
         startActivity(Intent(this, OssLicensesMenuActivity::class.java))
     }
 }
