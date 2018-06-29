@@ -87,6 +87,8 @@ class NetworksFragment : NavFragment() {
         swipeLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorAccent))
 
         NetworksViewModel.from(this).scanResults.observe(this, Observer {
+            requireContext().unregisterReceiver(scanResultHandler)
+
             swipeLayout.isRefreshing = false
             if (it == null || it.isEmpty()) {
                 view.findViewById<View>(R.id.networks_scan_block).visibility = View.VISIBLE
@@ -103,14 +105,15 @@ class NetworksFragment : NavFragment() {
         })
     }
 
-    override fun onStart() {
-        super.onStart()
-        requireContext().registerReceiver(scanResultHandler, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
-    }
-
     override fun onStop() {
         super.onStop()
-        requireContext().unregisterReceiver(scanResultHandler)
+
+        // Make sure we unregister our receiver to avoid memory leaks.
+        try {
+            requireContext().unregisterReceiver(scanResultHandler)
+        } catch (e: Exception) {
+            Timber.d("Wi-Fi scan results receiver already unregistered")
+        }
     }
 
     private fun onStartScan() {
@@ -159,6 +162,8 @@ class NetworksFragment : NavFragment() {
     }
 
     private fun doStartScan() {
+        requireContext().registerReceiver(scanResultHandler, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
+
         val wifiMan = requireContext().applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         wifiMan.startScan()
         Timber.d("Waiting for scanning results")
