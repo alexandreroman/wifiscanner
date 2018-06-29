@@ -16,6 +16,7 @@
 
 package fr.alexandreroman.wifiscanner
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
@@ -23,6 +24,7 @@ import android.support.v7.widget.Toolbar
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import fr.alexandreroman.wifiscanner.nav.NavPagerAdapter
 import timber.log.Timber
 import java.util.*
@@ -136,5 +138,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun doLicenses() {
         Timber.d("Showing software licenses")
+        startActivity(Intent(this, OssLicensesMenuActivity::class.java))
     }
 }
