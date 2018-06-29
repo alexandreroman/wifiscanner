@@ -81,6 +81,7 @@ class NetworksFragment : NavFragment() {
         val list = view.findViewById<RecyclerView>(R.id.list)
         list.adapter = listAdapter
         list.layoutManager = LinearLayoutManager(requireContext())
+        list.setHasFixedSize(true)
 
         val swipeLayout = view.findViewById<SwipeRefreshLayout>(R.id.swipe_layout)
         swipeLayout.setOnRefreshListener { refresh() }

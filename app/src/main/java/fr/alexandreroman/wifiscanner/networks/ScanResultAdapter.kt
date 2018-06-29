@@ -20,6 +20,10 @@ class ScanResultAdapter(
         var currentNetwork: String? = null)
     : RecyclerView.Adapter<ScanResultAdapter.ViewHolder>() {
 
+    init {
+        setHasStableIds(true)
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ssid: TextView = view.findViewById(R.id.networks_ssid)
         val bssid: TextView = view.findViewById(R.id.networks_bssid)
@@ -35,6 +39,10 @@ class ScanResultAdapter(
             items.addAll(scanResults)
         }
         notifyDataSetChanged()
+    }
+
+    override fun getItemId(position: Int): Long {
+        return items[position].SSID.hashCode().toLong()
     }
 
     override fun getItemCount(): Int {
