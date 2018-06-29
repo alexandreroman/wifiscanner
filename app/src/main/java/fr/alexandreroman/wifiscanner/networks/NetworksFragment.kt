@@ -87,14 +87,19 @@ class NetworksFragment : NavFragment() {
         swipeLayout.setColorSchemeColors(ContextCompat.getColor(context!!, R.color.colorAccent))
 
         NetworksViewModel.from(this).scanResults.observe(this, Observer {
-            view.findViewById<View>(R.id.networks_scan_block).visibility = View.GONE
-            swipeLayout.visibility = View.VISIBLE
             swipeLayout.isRefreshing = false
+            if (it == null || it.isEmpty()) {
+                view.findViewById<View>(R.id.networks_scan_block).visibility = View.VISIBLE
+                swipeLayout.visibility = View.GONE
+            } else {
+                view.findViewById<View>(R.id.networks_scan_block).visibility = View.GONE
+                swipeLayout.visibility = View.VISIBLE
 
-            val wifiMan = context!!.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-            val wifiInfo = wifiMan.connectionInfo
-            listAdapter.currentNetwork = wifiInfo.getSsid()
-            listAdapter.update(it)
+                val wifiMan = context!!.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+                val wifiInfo = wifiMan.connectionInfo
+                listAdapter.currentNetwork = wifiInfo.getSsid()
+                listAdapter.update(it)
+            }
         })
     }
 
