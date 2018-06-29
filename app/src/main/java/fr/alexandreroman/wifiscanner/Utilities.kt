@@ -18,3 +18,12 @@ inline fun WifiInfo.isSsidUnknown() = "<unknown ssid>" == this.ssid
 
 inline fun ScanResult.hasSecurityProtocol() =
         capabilities.contains("WPA") || capabilities.contains("WEP")
+
+fun ScanResult.getChannel() =
+        if (frequency == 2484) 14
+        else if (frequency < 2484) (frequency - 2407) / 5
+        else frequency / 5 - 1000
+
+fun ScanResult.is2Ghz() = frequency >= 2047 && frequency < 5000
+
+fun ScanResult.is5Ghz() = frequency >= 5000

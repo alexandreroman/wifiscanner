@@ -9,8 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import fr.alexandreroman.wifiscanner.R
-import fr.alexandreroman.wifiscanner.hasSecurityProtocol
+import fr.alexandreroman.wifiscanner.*
 
 /**
  * [RecyclerView] adapter for [ScanResult] instances.
@@ -23,6 +22,9 @@ class ScanResultAdapter(
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ssid: TextView = view.findViewById(R.id.networks_ssid)
+        val bssid: TextView = view.findViewById(R.id.networks_bssid)
+        val band: TextView = view.findViewById(R.id.networks_band)
+        val channel: TextView = view.findViewById(R.id.networks_channel)
         val signalLevel: ImageView = view.findViewById(R.id.networks_signal_level)
         val locked: ImageView = view.findViewById(R.id.networks_locked)
     }
@@ -51,7 +53,19 @@ class ScanResultAdapter(
             holder.ssid.setTextColor(ContextCompat.getColor(holder.ssid.context, android.R.color.primary_text_light))
         }
         holder.signalLevel.setImageDrawable(holder.signalLevel.context.getDrawable(scanResult.toSignalLevelResource()))
-        holder.locked.visibility = if (scanResult.hasSecurityProtocol()) View.VISIBLE else View.GONE
+        holder.bssid.text = scanResult.BSSID.toUpperCase()
+        if (scanResult.is2Ghz()) {
+            holder.band.setText(R.string.networks_band_24)
+        } else if (scanResult.is5Ghz()) {
+            holder.band.setText(R.string.networks_band_5)
+        } else {
+            holder.band.setText(R.string.networks_band_unknown)
+        }
+        holder.channel.text = holder.channel.context.getString(R.string.networks_channel).format(scanResult.getChannel())
+        holder.locked.setImageDrawable(
+                holder.locked.context.getDrawable(
+                        if (scanResult.hasSecurityProtocol()) R.drawable.baseline_lock_24
+                        else R.drawable.baseline_lock_open_24))
     }
 
     private fun ScanResult.toSignalLevelResource() =

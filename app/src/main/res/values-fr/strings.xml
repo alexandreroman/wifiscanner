@@ -40,4 +40,8 @@
     <string name="networks_start_scan_wifi_disabled">Le Wi-Fi est désactivé sur votre appareil : impossible de démarrer un scan.</string>
     <string name="networks_start_scan_permission_warning">Le scan de réseaux sans-fil requiert l\'accès à la position de votre appareil.</string>
     <string name="networks_start_scan_permission_warning_action">Examiner les permissions</string>
+    <string name="networks_channel">canal %d</string>
+    <string name="networks_band_24">2.4 GHz</string>
+    <string name="networks_band_5">5 GHz</string>
+    <string name="networks_band_unknown">bande inconnue</string>
 </resources>

@@ -41,4 +41,8 @@
     <string name="networks_start_scan_wifi_disabled">Wi-Fi is not enabled on this device: unable to start scan.</string>
     <string name="networks_start_scan_permission_warning">Scanning wireless networks requires access to your device location.</string>
     <string name="networks_start_scan_permission_warning_action">Review permissions</string>
+    <string name="networks_channel">channel %d</string>
+    <string name="networks_band_24">2.4 GHz</string>
+    <string name="networks_band_5">5 GHz</string>
+    <string name="networks_band_unknown">unknown band</string>
 </resources>
