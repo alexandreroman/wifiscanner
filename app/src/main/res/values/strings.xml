@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Wi-Fi Scanner</string>
+    <string name="about_version">version %s</string>
+    <string name="about_source_code"><a href="https://github.com/alexandreroman/wifiscanner">Get source code</a></string>
 
     <string name="nav_info">Info</string>
     <string name="nav_hosts">Hosts</string>

@@ -21,6 +21,9 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.text.method.LinkMovementMethod
+import android.widget.TextView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter
 import com.github.rubensousa.bottomsheetbuilder.BottomSheetBuilder
@@ -134,6 +137,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun doAbout() {
         Timber.d("Displaying information about this app")
+        val aboutContent = layoutInflater.inflate(R.layout.fragment_about, null, false)
+        val versionView = aboutContent.findViewById<TextView>(R.id.about_version)
+        versionView.text = getString(R.string.about_version).format(getApplicationVersion())
+
+        val aboutSourceCodeView = aboutContent.findViewById<TextView>(R.id.about_source_code)
+        aboutSourceCodeView.movementMethod = LinkMovementMethod.getInstance()
+
+        MaterialDialog.Builder(this)
+                .customView(aboutContent, false)
+                .build().show()
+    }
+
+    private fun getApplicationVersion(): String {
+        val pInfo = packageManager.getPackageInfo(packageName, 0)
+        return pInfo.versionName
     }
 
     private fun doLicenses() {

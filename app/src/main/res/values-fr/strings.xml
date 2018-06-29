@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about_version">version %s</string>
+    <string name="about_source_code"><a href="https://github.com/alexandreroman/wifiscanner">Télécharger le code source</a></string>
+
     <string name="nav_info">Info</string>
     <string name="nav_hosts">Hôtes</string>
     <string name="nav_networks">Réseaux</string>
