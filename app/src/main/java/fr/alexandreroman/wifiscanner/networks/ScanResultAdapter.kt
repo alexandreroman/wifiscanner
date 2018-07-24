@@ -58,7 +58,7 @@ class ScanResultAdapter(
         if (currentNetwork == scanResult.SSID) {
             holder.ssid.setTextColor(ContextCompat.getColor(holder.ssid.context, R.color.colorAccent))
         } else {
-            holder.ssid.setTextColor(ContextCompat.getColor(holder.ssid.context, android.R.color.primary_text_light))
+            holder.ssid.setTextColor(ContextCompat.getColor(holder.ssid.context, android.R.color.black))
         }
         holder.signalLevel.setImageDrawable(holder.signalLevel.context.getDrawable(scanResult.toSignalLevelResource()))
         holder.bssid.text = scanResult.BSSID.toUpperCase()
