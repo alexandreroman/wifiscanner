@@ -6,7 +6,7 @@ apply plugin: 'com.google.gms.oss.licenses.plugin'
 apply from: "$project.rootDir/tools/script-git-version.gradle"
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
     defaultConfig {
         applicationId "fr.alexandreroman.wifiscanner"
         minSdkVersion 21
