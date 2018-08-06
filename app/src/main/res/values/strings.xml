@@ -47,4 +47,8 @@
     <string name="networks_band_24">2.4 GHz</string>
     <string name="networks_band_5">5 GHz</string>
     <string name="networks_band_unknown">unknown band</string>
+
+    <string name="hosts_start_scan">Start scan</string>
+    <string name="hosts_stop_scan">Stop</string>
+    <string name="hosts_scan_init">Starting scan…</string>
 </resources>

@@ -17,9 +17,11 @@
 package fr.alexandreroman.wifiscanner.hosts
 
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import fr.alexandreroman.wifiscanner.R
 import fr.alexandreroman.wifiscanner.nav.NavFragment
 import timber.log.Timber
@@ -42,5 +44,35 @@ class HostsFragment : NavFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_hosts, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val startScanButton = view.findViewById<Button>(R.id.hosts_scan)
+        startScanButton.setOnClickListener { onStartScan() }
+    }
+
+    private fun onStartScan() {
+        val progressView = layoutInflater.inflate(R.layout.fragment_hosts_progress, null)
+        val progressDialog = BottomSheetDialog(requireContext(), R.style.AppTheme_ProgressBottomSheetDialog)
+        progressDialog.setContentView(progressView)
+
+        val stopButton = progressView.findViewById<Button>(R.id.hosts_stop_scan)
+        stopButton.setOnClickListener { progressDialog.cancel() }
+
+        val startScanButton = view!!.findViewById<Button>(R.id.hosts_scan)
+        startScanButton.isEnabled = false
+
+        val nd = NetworkDiscoverer({})
+        progressDialog.setOnShowListener { nd.start() }
+
+        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog.setOnCancelListener {
+            nd.stop()
+            startScanButton.isEnabled = true
+        }
+
+        progressDialog.show()
     }
 }

@@ -22,6 +22,10 @@
         <item name="behavior_skipCollapsed">true</item>
     </style>
 
+    <style name="AppTheme.ProgressBottomSheetDialog" parent="AppTheme.BottomSheetDialog">
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <style name="Content">
         <item name="android:background">#ddd</item>
         <item name="android:paddingTop">4dp</item>
